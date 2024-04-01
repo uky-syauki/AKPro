@@ -1,0 +1,143 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Tes Gaya Belajar</h1>
+    <div class="accordion-body">
+        Berikut adalah <strong>instrumen</strong> pertanyaan gaya belajar <strong>visual</strong>, <strong>auditorial</strong>, dan <strong>kinestetik</strong> dalam pembelajaran Bahasa Indonesia dengan pilihan jawaban <code>YA</code> dan <code>TIDAK</code>
+    </div>
+    <form id="quiz-form">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Bagian 1 (<a id="b1"></a>/10)
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+
+                        {% for isi in qs1 %}
+                        <div class="question">
+                            <p><strong>Pertanyaan {{isi.id}}:</strong> {{ isi.isi }}</p>
+
+                            <input type="radio" class="btn-check" name="question{{isi.id}}" id="question{{isi.id}}-yes" value="yes"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question{{isi.id}}-yes">YA</label>
+
+                            <input type="radio" class="btn-check" name="question{{isi.id}}" id="question{{isi.id}}-no" value="no"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question{{isi.id}}-no">TIDAK</label>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Bagian 2 (<a id="b2"></a>/10)
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {% for isi in qs2 %}
+                        <div class="question">
+                            <p><strong>Pertanyaan {{isi.id}}:</strong> {{ isi.isi }}</p>
+
+                            <input type="radio" class="btn-check" name="question{{isi.id}}" id="question{{isi.id}}-yes" value="yes"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question{{isi.id}}-yes">YA</label>
+
+                            <input type="radio" class="btn-check" name="question{{isi.id}}" id="question{{isi.id}}-no" value="no"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question{{isi.id}}-no">TIDAK</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Bagian 3 (<a id="b3"></a>/10)
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {% for isi in qs3 %}
+                        <div class="question">
+                            <p><strong>Pertanyaan {{isi.id}}:</strong> {{ isi.isi }}</p>
+
+                            <input type="radio" class="btn-check" name="question{{isi.id}}" id="question{{isi.id}}-yes" value="yes"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question{{isi.id}}-yes">YA</label>
+
+                            <input type="radio" class="btn-check" name="question{{isi.id}}" id="question{{isi.id}}-no" value="no"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question{{isi.id}}-no">TIDAK</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button id="selesai" class="btn btn-primary w-100 disabled" type="submit">
+                        SELESAI
+                    </button>
+                </h2>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    let qs1c = []
+    let qs2c = []
+    let qs3c = []
+    window.onload = function(){
+        document.getElementById("b1").innerText = "0";
+        document.getElementById("b2").innerText = "0";
+        document.getElementById("b3").innerText = "0";
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var radios = document.querySelectorAll('input[type=radio]');
+        radios.forEach(function(radio) {
+            radio.addEventListener('click', function() {
+                if (parseInt(this.id.slice(8,10)) <= 10) {
+                    if (!qs1c.includes(this.id.slice(0,10))){
+                        qs1c.push(this.id.slice(0,10));
+                        document.getElementById("b1").innerText = qs1c.length;
+                    }
+                } else if (parseInt(this.id.slice(8,10)) <= 20){
+                    if (!qs2c.includes(this.id.slice(0,10))){
+                        qs2c.push(this.id.slice(0,10));
+                        document.getElementById("b2").innerText = qs2c.length;
+                    }
+                } else {
+                    if (!qs3c.includes(this.id.slice(0,10))){
+                        qs3c.push(this.id.slice(0,10));
+                        document.getElementById("b3").innerText = qs3c.length;
+                    }
+                }
+
+                if (qs1c.length + qs2c.length + qs3c.length == 30){
+                    document.getElementById("selesai").classList.remove("disabled")
+                }
+            });
+        });
+    });
+    let count = () => {
+        console.log("bagian1 = ", qs1c.length);
+        console.log("bagian2 = ", qs2c.length);
+        console.log("bagian3 = ", qs3c.length);
+    }
+    </script>
+{% endblock %}

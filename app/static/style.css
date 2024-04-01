@@ -1,0 +1,124 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+/* .container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+} */
+
+.question {
+    margin-bottom: 20px;
+}
+
+/* Hide radio button */
+.btn-check {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+/* Style for checked label */
+.btn-outline-success:checked+label.btn-outline-success,
+.btn-outline-danger:checked+label.btn-outline-danger {
+    background-color: #28a745;
+    /* Success color */
+    border-color: #28a745;
+    /* Success color */
+    color: #fff;
+    /* Text color */
+}
+
+/* Style for label when radio button checked */
+.btn-check:checked+label {
+    background-color: #28a745;
+    /* Success color */
+    border-color: #28a745;
+    /* Success color */
+    color: #fff;
+    /* Text color */
+}
+
+.btn:hover {
+    color: inherit;
+    border-color: inherit;
+}
+
+/* Style untuk navigasi yang menempel */
+.sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+/* Custom CSS untuk menyesuaikan jumbotron */
+.jumbotron {
+    background-image: url("img/jbn3.png");
+    /* URL background image */
+    background-size: cover;
+    /* Menyesuaikan ukuran background */
+    color: white;
+    /* Warna teks */
+    text-align: center;
+    /* Teks rata tengah */
+    padding: 100px 0;
+    /* Padding atas dan bawah */
+    height: 90vh;
+    /* Tinggi jumbotron menjadi 100% tinggi viewport */
+    margin-bottom: 0;
+    /* Hapus margin bawah agar jumbotron penuh layar */
+}
+
+.btn-light {
+    color: #181f7d;
+}
+
+.navbar-toggler {
+    border-color: transparent !important;
+}
+
+.btn-login {
+    height: 5vh;
+    margin-top: 1vh;
+    padding-top: 0.2rem;
+}
+
+.deskripsi {
+    text-align: justify;
+}
+
+
+/* Style untuk footer */
+.footer {
+    background-color: #f8f9fa;
+    /* Warna latar belakang footer */
+    padding: 20px 0;
+    /* Ruang di atas dan bawah konten footer */
+    text-align: center;
+    /* Teks rata tengah */
+}
+
+.sesi {
+
+    text-align: center;
+
+}
+
+b {
+    color: #2f2f2f;
+}
+
+.accordion-item {
+    background-color: transparent;
+    border: none;
+}
+
+.accordion-button {
+    background-color: #cfd2ff !important;
+    border: 1px solid #bbb !important;
+}
