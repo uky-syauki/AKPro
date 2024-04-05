@@ -54,7 +54,7 @@ def index():
     return render_template("index.html", title="")
 
 
-@app.route("/test-gaya-belajar", methods=["GET","POST"])
+@app.route("/test", methods=["GET","POST"])
 @login_required
 def test():
     if current_user.hasil_test():
