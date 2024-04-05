@@ -122,3 +122,12 @@ b {
     background-color: #cfd2ff !important;
     border: 1px solid #bbb !important;
 }
+
+.pds {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+h2{
+    margin: 0 9%;
+    font-size: 1rem;
+}

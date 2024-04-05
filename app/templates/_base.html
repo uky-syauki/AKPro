@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKar Belajar Bahasa</title>
+    {% if not title %}
+        <title>AKar Belajar Bahasa</title>
+    {% else %}
+        <title>AKar Belajar Bahasa | {{ title }}</title>
+    {% endif %}
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -25,7 +29,7 @@
                             <a class="nav-link" href="{{ url_for('index') }}">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Latihan</a> <!-- Tautan ke bagian "About Us" -->
+                            <a class="nav-link" href="#">Akun</a> <!-- Tautan ke bagian "About Us" -->
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>
@@ -33,8 +37,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
                         </li>
+                        
                         <li class="nav-item">
-                            <button class="btn btn-primary btn-login">Login</button>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('logout') }}" class="btn btn-primary btn-login">Logout</a>
+                            {% else %}
+                            <a href="{{ url_for('login') }}" class="btn btn-primary btn-login">Login</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
@@ -44,9 +53,9 @@
   {% block content %}
   {% endblock %}
 
-  <div class="container mt-5" id="about"> <!-- Menambahkan ID untuk tautan anchor -->
+  <div class="container m9 mt-5 text-center" id="about"> <!-- Menambahkan ID untuk tautan anchor -->
     <h2>About Us</h2>
-    <p>"Tes <strong>Gaya Belajar</strong>: Menyingkap Rahasia Unik Individu, Membuka Pintu Luas Menuju Pembelajaran yang Lebih <code>Efektif</code> dan <code>Memuaskan</code>."</p>
+    <h2>"Tes <strong>Gaya Belajar</strong>: MenyingkaP Rahasia Unik Individu, Membuka Pintu Luas Menuju Pembelajaran yang Lebih <code>Efektif</code> dan <code>Memuaskan</code>."</h2>
     <br>
   </div>
 
