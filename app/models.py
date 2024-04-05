@@ -47,13 +47,6 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-class Pertanyaan(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    role = db.Column(db.String(15))
-    isi = db.Column(db.String(200))
-    def __repr__(self):
-        return f"<ID {self.id}>"
-    
 class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     kode_room = db.Column(db.String(10), unique=True)
@@ -64,16 +57,28 @@ class Room(db.Model):
     def __repr__(self):
         return f"<Room {self.kode_room}>"
     
+
+class Pertanyaan(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    role = db.Column(db.String(15))
+    isi = db.Column(db.String(200))
+    def __repr__(self):
+        return f"<ID {self.id}>"
+    
+    
 class Roomsiswa(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     kode_room = db.Column(db.String(10))
     nip_nis = db.Column(db.String(15))
     def room(self):
         return Room.query.filter_by(kode_room=self.kode_room).first()
+    def hasil_test(self):
+        return Hasiltest.query.filter_by(nip_nis=self.nip_nis).first()
+    def siswa(self):
+        return User.query.filter_by(nip_nis=self.nip_nis).first()
     def __repr__(self):
         return f"Roomsiswa <{self.kode_room}>"
 
-    
     
 class Hasiltest(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

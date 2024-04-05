@@ -14,17 +14,18 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
+            flash("Username atau Password Salah", "danger")
             return redirect(url_for("login"))
-        flash("Login Berhasil")
+        flash("Login Berhasil","success")
         login_user(user)
-        print("Berhasil")
-        if user.status == "siswa":
+        if user.status == "siswa" and not Hasiltest.query.filter_by(nip_nis=current_user.nip_nis).first():
             return redirect(url_for("test"))
         return redirect(url_for("akun"))
     return render_template("login.html", form=form, title="Login")
 
 
 @app.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect(url_for("index"))
@@ -47,12 +48,13 @@ def daftar():
             return redirect(url_for("daftar"))
     return render_template("daftar.html", form=form)
 
+
 @app.route("/")
 def index():
     return render_template("index.html", title="")
 
 
-@app.route("/test", methods=["GET","POST"])
+@app.route("/test-gaya-belajar", methods=["GET","POST"])
 @login_required
 def test():
     if current_user.hasil_test():
@@ -64,7 +66,6 @@ def test():
         visual = 0
         auditorial = 0
         kinestetik = 0
-        # processed_data = {}
         for pair in datastr.split('&'):
             key, value = pair.split('=')
             if int(key[8:]) <= 10:
@@ -76,70 +77,66 @@ def test():
             else:
                 if value == "yes":
                     kinestetik += 1
+        if visual and auditorial and kinestetik:
+            flash("Anda tidak mengisih test dengan benar","danger")
+            return redirect(url_for("test"))
         user = User.query.get(current_user.id)
         user.set_hasil_test(visual=visual,auditorial=auditorial,kinestetik=kinestetik)
-        db.session.add(user)
-        db.session.commit()
-        print(f"Visual: {visual}")
-        print(f"Auditorial: {auditorial}")
-        print(f"Kinestetik: {kinestetik}")
-            # processed_data[key] = value
-        
-        # for isi in processed_data:
-        #     print(f"{isi[8:]}: {processed_data[isi]}")
-    # db.session.rollback()
+        try:
+            db.session.add(user)
+            db.session.commit()
+            flash("Berhasil melakukan Tes Gaya Belajar","info")
+        except:
+            db.session.rollback()
+            flash("Terjadi kesalahan","danger")
+        return redirect(url_for('akun'))
     return render_template("test.html", qs1=data[:10], qs2=data[10:20], qs3=data[20:], title="Tes Gaya Belajar")
 
 
 @app.route("/akun", methods=["GET","POST"])
+@login_required
 def akun():    
     if current_user.status == "guru":
         form = BuatClassForm()
         if form.validate_on_submit():
-            print(form.kode_room.data)
-            print(form.nama_room.data)
+            cek = Room.query.filter_by(kode_room=form.kode_room.data).first()
+            if cek:
+                flash(f"Kode Class {form.kode_room.data} sudah digunakan", "danger")
+                return redirect(url_for("akun"))
+            panjang = len(form.kode_room.data)
+            if panjang <= 0 or panjang > 10:
+                flash("Kode Room tidak boleh kosong atau memiliki lebih dari 10 karakter","danger")
+                return redirect(url_for('akun'))
             room = Room(kode_room=form.kode_room.data, nama_room=form.nama_room.data,nip_nis=current_user.nip_nis)
-            db.session.add(room)
-            db.session.commit()
+            try:
+                db.session.add(room)
+                db.session.commit()
+                flash(f"Room {form.nama_room.data} berhasil di buat!","success")
+            except:
+                db.session.rollback()
+                flash("Terjadi kesalahan","danger")
             return redirect(url_for('akun'))
-        # room_dan_siswa = {}
-        # room = Room.query.filter_by(nip_nis=current_user.nip_nis).all()
-        # for isi in room:
-        #     room_dan_siswa[isi.nama_room] = []
-        #     allSiswa = User.query.filter_by(kode_room=isi.kode_room).all()
-        #     for sw in allSiswa:
-        #         room_dan_siswa[isi.nama_room].append(sw)
-                
-        # for siswa in room_dan_siswa:
-        #     print(siswa)
-        #     for isi in room_dan_siswa[siswa]:
-        #         print(isi.username)
-        #         print(isi.nip_nis)
-        print(current_user.guru_room())
-        for isi in current_user.guru_room():
-            print(isi.siswa())
-            for siswa in isi.siswa():
-                print(siswa.siswa())
-                sw = siswa.siswa().hasil_test()
-                print(sw.visual)
-                print(sw.auditorial)
-                print(sw.kinestetik)
         return render_template("guru.html", room=current_user.guru_room(), form=form)
     else:
         form = JoinRoomForm()
         if form.validate_on_submit():
             cek = Roomsiswa.query.filter_by(nip_nis=current_user.nip_nis).first()
             if cek:
-                flash(f"Anda telah terdaftar pada kelas {cek.nama_room}!")
+                flash(f"Anda telah terdaftar pada kelas {cek.nama_room}!","warning")
                 return redirect(url_for('akun'))
             room = Room.query.filter_by(kode_room=form.kode_room.data).first()
             if room is None:
-                flash("Room tidak ditemukan!")
+                flash("Room tidak ditemukan!","warning")
                 return redirect(url_for('akun'))
             siswa = User.query.get(current_user.id)
             siswa.gabung_room(kode_room=room.kode_room)
-            db.session.add(siswa)
-            db.session.commit()
+            try:
+                db.session.add(siswa)
+                db.session.commit()
+                flash(f"Berhasil terdaftar pada Room {room.nama_room}","success")
+            except:
+                db.session.rollback()
+                flash("Terjadi kesalahan","danger")
             return redirect(url_for('akun'))
         room = current_user.siswa_room()
         print(room)
@@ -155,6 +152,7 @@ def profile(status):
         return "Hello guru"
     else:
         return "Hello suswa"
+    
 
 @app.route("/api", methods=["POST"])
 def postdata():

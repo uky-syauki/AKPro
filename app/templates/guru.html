@@ -168,6 +168,10 @@
         display: inline;
         width: 45%;
     }
+
+    thead, tbody{
+        text-align: center !important;
+    }
 </style>
 
 <!-- <body> -->
@@ -258,7 +262,7 @@
                             <div class="d-flex justify-content-between
                                 align-items-center">
                                 <div>
-                                    <h5 class="mb-0">{{ isi.nama_room }}</h5>
+                                    <h5 class="mb-0">Nama Class: {{ isi.nama_room }} ({{ isi.kode_room }})</h5>
                                 </div>
                                 <div>
                                     <a href="#!" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 icon-xs">
@@ -291,13 +295,23 @@
                                     </thead>
                                     <tbody>
                                         {% for siswa in isi.siswa() %}
-                                        <tr>
-                                            <th scope="row">{{ siswa.siswa().id }}</th>
-                                            <td>{{ siswa.siswa().username }}</td>
-                                            <td>{{ siswa.siswa().hasil_test().visual }}</td>
-                                            <td>{{ siswa.siswa().hasil_test().auditorial }}</td>
-                                            <td>{{ siswa.siswa().hasil_test().kinestetik }}</td>
-                                        </tr>
+                                            {% if not siswa.hasil_test() %}
+                                                <tr>
+                                                    <th scope="row">{{ siswa.id }}</th>
+                                                    <td>{{ siswa.siswa().username }}</td>
+                                                    <td>Belum ada</td>
+                                                    <td>Belum ada</td>
+                                                    <td>Belum ada</td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <th scope="row">{{ siswa.id }}</th>
+                                                    <td>{{ siswa.siswa().username }}</td>
+                                                    <td>{{ siswa.hasil_test().visual }}</td>
+                                                    <td>{{ siswa.hasil_test().auditorial }}</td>
+                                                    <td>{{ siswa.hasil_test().kinestetik }}</td>
+                                                </tr>
+                                            {% endif %}
                                         {% endfor %}
                                         <!-- <tr>
                                             <th scope="row">2</th>
