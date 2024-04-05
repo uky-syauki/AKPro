@@ -77,9 +77,9 @@ def test():
             else:
                 if value == "yes":
                     kinestetik += 1
-        if visual and auditorial and kinestetik:
-            flash("Anda tidak mengisih test dengan benar","danger")
-            return redirect(url_for("test"))
+        # if visual and auditorial and kinestetik:
+        #     flash("Anda tidak mengisih test dengan benar","danger")
+        #     return redirect(url_for("test"))
         user = User.query.get(current_user.id)
         user.set_hasil_test(visual=visual,auditorial=auditorial,kinestetik=kinestetik)
         try:
@@ -120,9 +120,9 @@ def akun():
     else:
         form = JoinRoomForm()
         if form.validate_on_submit():
-            cek = Roomsiswa.query.filter_by(nip_nis=current_user.nip_nis).first()
+            cek = Roomsiswa.query.filter_by(nip_nis=current_user.nip_nis, kode_room=form.kode_room.data).first()
             if cek:
-                flash(f"Anda telah terdaftar pada kelas {cek.nama_room}!","warning")
+                flash(f"Anda telah terdaftar pada kelas {cek.room().nama_room}!","warning")
                 return redirect(url_for('akun'))
             room = Room.query.filter_by(kode_room=form.kode_room.data).first()
             if room is None:
