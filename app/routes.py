@@ -37,13 +37,19 @@ def daftar():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
     if form.validate_on_submit():
+        cek = User.query.filter_by(nip_nis=form.nip_nis.data).first()
+        if cek:
+            flash(f"Maaf nip atau nis telah terdaftar oleh pengguna {cek.username}", "warning")
+            return redirect(url_for('daftar'))
         try:
             user = User(nip_nis=form.nip_nis.data, username=form.username.data,status=form.status.data)
             user.set_password(form.password.data)
             db.session.add(user)
             db.session.commit()
+            flash("Berhasil mendaftar, silahkan Login","success")
             return redirect(url_for('login'))
         except:
+            flash("Terjadi kesalahan, periksa inputan","danger")
             db.session.rollback()
             return redirect(url_for("daftar"))
     return render_template("daftar.html", form=form)
@@ -142,6 +148,7 @@ def akun():
         print(room)
         for isi in room:
             print(isi.room().nama_room)
+            print(isi.hasil_test())
         return render_template("siswa.html", room=room, form=form)
         
 

@@ -61,7 +61,7 @@
     }
 
     .pt-20 {
-        padding-top: 8rem !important;
+        padding-top: 5rem !important;
     }
 
     .avatar-xxl.avatar-indicators:before {
@@ -168,8 +168,36 @@
         display: inline;
         width: 45%;
     }
-    thead, tbody{
+
+    thead,
+    tbody {
         text-align: center !important;
+    }
+
+    .nice-table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+    .nice-table th,
+    .nice-table td {
+        padding: 15px;
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+        background-color: #f8f9fa;
+    }
+
+    .nice-table th {
+        /* background-color: #72b6ff;
+        color: #fff;
+        border-color: #007bff; */
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .nice-table tbody tr:hover {
+        background-color: #e9ecef;
     }
 </style>
 
@@ -220,95 +248,224 @@
                 </ul>
             </div>
         </div>
-    </div>
+        <!-- </div> -->
 
-    <!-- page content -->
-    <div class="py-6">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-12">
-                <!-- row -->
-                <div class="row align-items-center mb-6">
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <!-- form -->
-                        <form action="" method="post">
-                            {% if current_user.status == 'guru' %}
+        <!-- page content -->
+        <div class="py-6">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <!-- row -->
+                    <div class="row align-items-center mb-6">
+                        <div class="col-lg-12 col-md-12 col-12">
+                            <!-- form -->
+                            <form action="" method="post">
+                                {% if current_user.status == 'guru' %}
                                 {{ form.hidden_tag() }}
                                 <!-- <input type="search" class="form-control" placeholder="Nama Class"> -->
                                 {{ form.nama_room(class="form-control", placeholder="Nama Class") }}
                                 {{ form.kode_room(class="form-control", placeholder="Kode Class") }}
                                 {{ form.buat(class="btn btn-primary") }}
-                            <!-- <input type="search" class="form-control" placeholder="Kode Class"> -->
-                            <!-- <button type="submit" class="btn btn-primary">Buat</button> -->
-                            {% else %}
-                                {% if not current_user.kode_room %}
-                                    {{ form.hidden_tag() }}
-                                    {{ form.kode_room(class="form-control", placeholder="Kode Class") }}
-                                    {{ form.gabung(class="btn btn-primary") }}
+                                <!-- <input type="search" class="form-control" placeholder="Kode Class"> -->
+                                <!-- <button type="submit" class="btn btn-primary">Buat</button> -->
+                                {% else %}
+                                {{ form.hidden_tag() }}
+                                {{ form.kode_room(class="form-control", placeholder="Kode Class") }}
+                                {{ form.gabung(class="btn btn-primary") }}
                                 {% endif %}
-                            {% endif %}
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                </div>
-                <!-- hr -->
-                {% if room %}
-                {% for isi in room %}
-                <div class="mb-8">
-                    <!-- card -->
-                    <div class="card bg-gray-300 shadow-none mb-4">
-                        <!-- card body -->
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between
+                    </div>
+                    <!-- hr -->
+                    {% if room %}
+                    {% for isi in room %}
+                    <div class="mb-8">
+                        <!-- card -->
+                        <div class="card bg-gray-300 shadow-none mb-4">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between
                                 align-items-center">
-                                <div>
-                                    <h5 class="mb-0">{{ isi.room().nama_room }}</h5>
-                                </div>
-                                <div>
-                                    <a href="#!" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 icon-xs">
-                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"> </path>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                        </svg></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% else %}
-                <div class="mb-8">
-                    <!-- card -->
-                    <div class="card bg-gray-300 shadow-none mb-4">
-                        <!-- card body -->
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h5 class="mb-0">Belum ada Class</h5>
-                                </div>
-                                <div>
-                                    <a href="#!" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-trash-2 icon-xs">
-                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path
-                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                            </path>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                        </svg></a>
+                                    <div>
+                                        <h5 class="mb-0">{{ isi.room().nama_room }}</h5>
+                                    </div>
+                                    <div>
+                                        <a href="#!" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-trash-2 icon-xs">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path
+                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                </path>
+                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            </svg></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    <div class="mb-8">
+                        <!-- card -->
+                        <div class="card bg-gray-300 shadow-none mb-4">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-0">Belum ada Class</h5>
+                                    </div>
+                                    <div>
+                                        <a href="#!" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-trash-2 icon-xs">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path
+                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                </path>
+                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            </svg></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <!-- end table -->
+                    <!-- </div> -->
+                <!-- </div> -->
+
+            <!-- </div> -->
+        <!-- </div> -->
+        <!-- </div> -->
+
+
+        <!-- <div class="container"> -->
+        <div class="mb-8">
+            <!-- card -->
+            <div class="card bg-gray-300 shadow-none mb-4">
+                <!-- card body -->
+
+            </div>
+            <!-- card -->
+            <div class="card">
+                <!-- list group -->
+                <ul class="list-group list-group-flush">
+                    <!-- list group item  -->
+                    <li class="list-group-item p-3 bg-gray-300 shadow-none">
+                        <div class="d-flex justify-content-between
+              align-items-center ">
+                            <!-- here -->
+                            <div class="table-responsive">
+                                <table class="table nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">Hasil Tes Gaya Belajar</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Visual {{ current_user.hasil_test().visual }}0%</th>
+                                            <th>Auditorial {{ current_user.hasil_test().auditorial }}0%</th>
+                                            <th>Kinestetik {{ current_user.hasil_test().kinestetik }}0%</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- list group item  -->
+                    <li class="list-group-item p-3">
+                        <div class="justify-content-between
+              align-items-center">
+                        {% if current_user.hasil_test().visual == 0 and current_user.hasil_test().auditorial == 0 and current_user.hasil_test().kinestetik == 0 %}
+                            <p><b>Hasil tes anda 0</b></p>
+                        {% elif current_user.hasil_test().visual >= current_user.hasil_test().kinestetik and current_user.hasil_test().visual >= current_user.hasil_test().auditorial %}
+                            {% include 'visual.html' %}
+                            {% if current_user.hasil_test().visual == current_user.hasil_test().auditorial %}
+                                {% include 'auditorial.html' %}
+                            {% endif %}
+                            {% if current_user.hasil_test().visual == current_user.hasil_test().kinestetik %}
+                                {% include 'kinestetik.html' %}
+                            {% endif %}
+                        {% elif current_user.hasil_test().auditorial >= current_user.hasil_test().kinestetik %}
+                            {% include 'auditorial.html' %}
+                            {% if current_user.hasil_test().auditorial == current_user.hasil_test().kinestetik %}
+                                {% include 'kinestetik.html' %}
+                            {% endif %}
+                        {% else %}
+                            {% include 'kinestetik.html' %}
+                        {% endif %}
+                        {% include 'ket.html' %}
+                        </div>
+                    </li>
+                    <!-- list group item  -->
+                    <li class="list-group-item p-3">
+                        <div class="justify-content-between
+              align-items-center">
+              <h2 class="font-judul fs-30 mb-20 grey pt-20">
+                Recomendasi Gaya Belajar
+              </h2>
+              <div id="accordion">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Gaya Belajar Visual
+                      </button>
+                    </h5>
+                  </div>
+              
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        Jika kamu memiliki gaya belajar visual, kamu bisa mencoba strategi belajar yang memanfaatkan gambar, diagram, dan visualisasi. Untuk meningkatkan keterampilan menyimak, kamu bisa menonton video atau presentasi yang berhubungan dengan topik yang kamu pelajari. Ketika berbicara, cobalah membuat peta pikiran atau gambar-gambar yang menggambarkan ide-ide utama yang ingin kamu sampaikan. Saat membaca, perhatikan gambar-gambar dan grafik yang ada dalam teks untuk membantu memahami isi bacaan. Selain itu, ketika menulis, kamu bisa membuat catatan dengan menggunakan warna-warni dan diagram untuk menyusun ide-ide secara visual.
+                    </div>
+                  </div>
                 </div>
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Gaya Belajar Auditorial
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        Bagi yang memiliki gaya belajar auditorial, metode mendengarkan dan berbicara akan sangat membantu. Untuk meningkatkan keterampilan menyimak, dengarkan rekaman audio seperti podcast atau wawancara yang berhubungan dengan topik yang kamu pelajari. Saat berbicara, coba praktikkan berbicara dengan jelas dan lancar, dan jika memungkinkan, rekam dirimu sendiri dan dengarkan kembali untuk memperbaiki pengucapan dan intonasi. Saat membaca, bacalah teks-teks secara keras dan cobalah untuk menjelaskan kembali apa yang telah kamu baca dengan suara keras. Ketika menulis, bacakan apa yang telah kamu tulis dan dengarkan kembali untuk memperbaiki kesalahan atau menyempurnakan tulisanmu.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Gaya Belajar Kinestetik
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        Untuk mereka yang memiliki gaya belajar kinestetik, penting untuk melibatkan gerakan dan tindakan fisik dalam proses belajar. Saat menyimak, cobalah untuk meniru gerakan yang kamu dengar atau membuat gerakan tubuh yang sesuai dengan apa yang sedang kamu dengarkan. Saat berbicara, jangan takut untuk berperan dalam peran-peran yang relevan dengan topik yang sedang dibahas atau menggunakan gestur tangan untuk memperkuat poin yang kamu sampaikan. Saat membaca, bergeraklah sambil membaca atau gunakan jari kamu untuk menyorot teks yang sedang kamu baca. Ketika menulis, cobalah menulis di atas kertas besar sambil berdiri atau berjalan-jalan untuk meningkatkan kreativitas dan konsentrasi.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <!-- </body>
+</div>
+</div>
+    </div>
+</div>
+
+<!-- </body>
 
 </html> -->
 
-    {% endblock %}
+{% endblock %}

@@ -18,7 +18,9 @@
     <section>
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <div class="container">
-                <a class="navbar-brand" href="{{ url_for('index') }}"><b>AKar Belajar Bahasa</b></a>
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" width="200">
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -67,8 +69,9 @@
   {% endblock %}
 
   <div class="container m9 mt-5 text-center" id="about"> <!-- Menambahkan ID untuk tautan anchor -->
-    <h2>About Us</h2>
-    <h2>"Tes <strong>Gaya Belajar</strong>: MenyingkaP Rahasia Unik Individu, Membuka Pintu Luas Menuju Pembelajaran yang Lebih <code>Efektif</code> dan <code>Memuaskan</code>."</h2>
+    <!-- <h2>About Us</h2> -->
+    <!-- <h2 class="font-slg fs-24"><a class="text-danger">TES GAYA BELAJAR</a> <a class="text-primary">:MENYINGKAP RAHASIA UNIK INDIVIDU, MEMBUKA PINTU LUAS MENUJU PEMBELAJARAN YANG LEBIH</a> <a class="text-danger">Efektif</a> <a class="text-primary">DAN</a> <a class="text-danger">Memuaskan</a>."</h2> -->
+    <h2 class="font-slg fs-24 text-primary"><i class="bi bi-quote"></i>TES GAYA BELAJAR: TEMUKAN POTENSI UNIKMU UNTUK PEMBELAJARAN YANG LEBIH EFEKTIF DAN MEMUASKAN!<i class="bi bi-quote"></i></h2>
     <br>
   </div>
 

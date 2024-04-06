@@ -1,13 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, RadioField, validators
 
 
 class DaftarForm(FlaskForm):
     nip_nis = StringField("NIP atau NIS")
-    # status = StringField("Status")
     status = RadioField('Options', choices=[('guru', 'Guru'), ('siswa', 'Siswa')])
     username = StringField("Nama Pengguna")
-    password = PasswordField("Password")
+    password = PasswordField("Password", [
+        validators.DataRequired(),
+        validators.EqualTo('ulang_password', message='Password harus sama')
+    ])
     ulang_password = PasswordField("Ulang Password")
     daftar = SubmitField("Daftar")
 
