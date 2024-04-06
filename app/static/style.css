@@ -158,6 +158,11 @@ h2 {
     line-height: 35px !important;
 }
 
+.fs-20{
+    font-size: 20px !important;
+    line-height: 35px !important;
+}
+
 .mb-20{
     margin-bottom: 20px !important;
 }
@@ -168,4 +173,8 @@ a{
 
 .grey{
     color: #424a4c !important;
+}
+
+.t{
+    line-height: normal !important;
 }

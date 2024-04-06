@@ -150,6 +150,22 @@ def akun():
             print(isi.room().nama_room)
             print(isi.hasil_test())
         return render_template("siswa.html", room=room, form=form)
+
+
+@app.route("/latihan-visual")
+def latihan_visual():
+    return render_template("latihanVisual.html", title="Latihan Gaya Belajar Visual")
+
+@app.route("/latihan-auditorial")
+def latihan_auditorial():
+    return render_template("latihanAuditorial.html", title="Latihan Gaya Belajar Visual")        
+
+@app.route("/latihan-kinestetik")
+def latihan_kinestetik():
+    return render_template("latihanKinestetik.html", title="Latihan Gaya Belajar Visual")
+        
+
+
         
 
 @app.route("/profile/<status>")

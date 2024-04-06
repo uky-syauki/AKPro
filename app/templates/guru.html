@@ -187,7 +187,7 @@
                 <div class="d-flex align-items-center justify-content-between
                 pt-4 pb-6 px-4">
                     <!-- avatar -->
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center" style="width: 100%;">
                         <div class="avatar-xxl avatar-indicators avatar-online me-2
                     position-relative d-flex justify-content-end
                     align-items-end mt-n10">
@@ -199,24 +199,33 @@
                             </a>
                         </div>
                         <!-- content -->
-                        <div class="lh-1">
-                            <h2 class="mb-0">{{ current_user.username }}
-                                <a href="#!" class="text-decoration-none">
-                                </a>
-                            </h2>
-                            <p class="mb-0 d-block">Status pengguna: {{ current_user.status }}</p>
+                        <div class="lh-1" style="width: 100%;">
+                            <table>
+                                <tr>
+                                    <td class="mb-0 deskripsi font-slg">Nama </td>
+                                    <td class="mb-0 deskripsi font-slg">: {{ current_user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="mb-0 deskripsi font-slg">Nip/Nis </td>
+                                    <td class="mb-0 deskripsi font-slg">: {{ current_user.nip_nis }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="mb-0 deskripsi font-slg">Status </td>
+                                    <td class="mb-0 deskripsi font-slg">: {{ current_user.status }}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div>
                         <!-- button -->
-                        <a href="#" class="btn btn-outline-primary
-                    d-none d-md-block">Edit Profile</a>
+                        <!-- <a href="#" class="btn btn-outline-primary
+                    d-none d-md-block">Edit Profile</a> -->
                     </div>
                 </div>
                 <!-- nav -->
                 <ul class="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Activity</a>
+                        <a class="nav-link active" href="#"></a>
                     </li>
                 </ul>
             </div>

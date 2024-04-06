@@ -214,7 +214,7 @@
                 <div class="d-flex align-items-center justify-content-between
                 pt-4 pb-6 px-4">
                     <!-- avatar -->
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center" style="width: 100%;">
                         <div class="avatar-xxl avatar-indicators avatar-online me-2
                     position-relative d-flex justify-content-end
                     align-items-end mt-n10">
@@ -226,24 +226,33 @@
                             </a>
                         </div>
                         <!-- content -->
-                        <div class="lh-1">
-                            <h2 class="mb-0">{{ current_user.username }}
-                                <a href="#!" class="text-decoration-none">
-                                </a>
-                            </h2>
-                            <p class="mb-0 d-block">Status pengguna: {{ current_user.status }}</p>
+                        <div class="lh-1" style="width: 100%;">
+                            <table>
+                                <tr>
+                                    <td class="mb-0 deskripsi font-slg">Nama </td>
+                                    <td class="mb-0 deskripsi font-slg">: {{ current_user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="mb-0 deskripsi font-slg">Nip/Nis </td>
+                                    <td class="mb-0 deskripsi font-slg">: {{ current_user.nip_nis }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="mb-0 deskripsi font-slg">Status </td>
+                                    <td class="mb-0 deskripsi font-slg">: {{ current_user.status }}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div>
                         <!-- button -->
-                        <a href="#" class="btn btn-outline-primary
-                    d-none d-md-block">Edit Profile</a>
+                        <!-- <a href="#" class="btn btn-outline-primary
+                    d-none d-md-block">Edit Profile</a> -->
                     </div>
                 </div>
                 <!-- nav -->
                 <ul class="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Activity</a>
+                        <a class="nav-link active" href="#"></a>
                     </li>
                 </ul>
             </div>
@@ -335,138 +344,204 @@
                         </div>
                         {% endif %}
                         <!-- end table -->
-                    <!-- </div> -->
-                <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
 
-            <!-- </div> -->
-        <!-- </div> -->
-        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
 
-        {% if current_user.hasil_test() %}
-        <!-- <div class="container"> -->
-        <div class="mb-8">
-            <!-- card -->
-            <div class="card bg-gray-300 shadow-none mb-4">
-                <!-- card body -->
+                        {% if current_user.hasil_test() %}
+                        <!-- <div class="container"> -->
+                        <div class="mb-8">
+                            <!-- card -->
+                            <div class="card bg-gray-300 shadow-none mb-4">
+                                <!-- card body -->
 
-            </div>
-            <!-- card -->
-            <div class="card">
-                <!-- list group -->
-                <ul class="list-group list-group-flush">
-                    <!-- list group item  -->
-                    <li class="list-group-item p-3 bg-gray-300 shadow-none">
-                        <div class="d-flex justify-content-between
+                            </div>
+                            <!-- card -->
+                            <div class="card">
+                                <!-- list group -->
+                                <ul class="list-group list-group-flush">
+                                    <!-- list group item  -->
+                                    <li class="list-group-item p-3 bg-gray-300 shadow-none">
+                                        <div class="d-flex justify-content-between
               align-items-center ">
-                            <!-- here -->
-                            <div class="table-responsive">
-                                <table class="table nice-table">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="3">Hasil Tes Gaya Belajar</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Visual {{ current_user.hasil_test().visual }}0%</th>
-                                            <th>Auditorial {{ current_user.hasil_test().auditorial }}0%</th>
-                                            <th>Kinestetik {{ current_user.hasil_test().kinestetik }}0%</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                            <!-- here -->
+                                            <div class="table-responsive">
+                                                <table class="table nice-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="3">Hasil Tes Gaya Belajar</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Visual {{ current_user.hasil_test().visual }}0%</th>
+                                                            <th>Auditorial {{ current_user.hasil_test().auditorial }}0%
+                                                            </th>
+                                                            <th>Kinestetik {{ current_user.hasil_test().kinestetik }}0%
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <!-- list group item  -->
+                                    <li class="list-group-item p-3">
+                                        <div class="justify-content-between
+              align-items-center">
+                                            {% if current_user.hasil_test().visual == 0 and current_user.hasil_test().auditorial == 0 and current_user.hasil_test().kinestetik == 0 %}
+                                            <p><b>Hasil tes anda 0</b></p>
+                                            {% elif current_user.hasil_test().visual >= current_user.hasil_test().kinestetik and current_user.hasil_test().visual >= current_user.hasil_test().auditorial %}
+                                            {% include 'visual.html' %}
+                                            {% if current_user.hasil_test().visual == current_user.hasil_test().auditorial %}
+                                            {% include 'auditorial.html' %}
+                                            {% endif %}
+                                            {% if current_user.hasil_test().visual == current_user.hasil_test().kinestetik %}
+                                            {% include 'kinestetik.html' %}
+                                            {% endif %}
+                                            {% elif current_user.hasil_test().auditorial >= current_user.hasil_test().kinestetik %}
+                                            {% include 'auditorial.html' %}
+                                            {% if current_user.hasil_test().auditorial == current_user.hasil_test().kinestetik %}
+                                            {% include 'kinestetik.html' %}
+                                            {% endif %}
+                                            {% else %}
+                                            {% include 'kinestetik.html' %}
+                                            {% endif %}
+                                            {% include 'ket.html' %}
+                                        </div>
+                                    </li>
+                                    <!-- list group item  -->
+                                    <li class="list-group-item p-3">
+                                        <div class="justify-content-between
+              align-items-center">
+                                            <h2 class="font-judul fs-20 mb-20 grey pt-20">
+                                                Recomendasi Gaya Belajar
+                                            </h2>
+                                            <div id="accordion">
+                                                <div class="card">
+                                                    <div class="card-header" id="headingOne">
+                                                        <h5 class="mb-0">
+                                                            <button class="btn btn-link" data-toggle="collapse"
+                                                                data-target="#collapseOne" aria-expanded="true"
+                                                                aria-controls="collapseOne">
+                                                                Gaya Belajar Visual
+                                                            </button>
+                                                        </h5>
+                                                    </div>
+
+                                                    <div id="collapseOne" class="collapse show"
+                                                        aria-labelledby="headingOne" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            <p>
+                                                                Jika kamu memiliki gaya belajar visual, kamu bisa
+                                                                mencoba strategi belajar yang memanfaatkan gambar,
+                                                                diagram, dan visualisasi. Untuk meningkatkan
+                                                                keterampilan menyimak, kamu bisa menonton video atau
+                                                                presentasi yang berhubungan dengan topik yang kamu
+                                                                pelajari. Ketika berbicara, cobalah membuat peta pikiran
+                                                                atau gambar-gambar yang menggambarkan ide-ide utama yang
+                                                                ingin kamu sampaikan. Saat membaca, perhatikan
+                                                                gambar-gambar dan grafik yang ada dalam teks untuk
+                                                                membantu memahami isi bacaan. Selain itu, ketika
+                                                                menulis, kamu bisa membuat catatan dengan menggunakan
+                                                                warna-warni dan diagram untuk menyusun ide-ide secara
+                                                                visual.
+                                                            </p>
+                                                            <br>
+                                                            <a href="{{ url_for('latihan_visual') }}"
+                                                                style="text-align: center !important;">>> Latihan
+                                                                Berbasis Gaya Visual</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header" id="headingTwo">
+                                                        <h5 class="mb-0">
+                                                            <button class="btn btn-link collapsed"
+                                                                data-toggle="collapse" data-target="#collapseTwo"
+                                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                                Gaya Belajar Auditorial
+                                                            </button>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                                        data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            <p>
+                                                                Bagi yang memiliki gaya belajar auditorial, metode
+                                                                mendengarkan dan berbicara akan sangat membantu. Untuk
+                                                                meningkatkan keterampilan menyimak, dengarkan rekaman
+                                                                audio seperti podcast atau wawancara yang berhubungan
+                                                                dengan topik yang kamu pelajari. Saat berbicara, coba
+                                                                praktikkan berbicara dengan jelas dan lancar, dan jika
+                                                                memungkinkan, rekam dirimu sendiri dan dengarkan kembali
+                                                                untuk memperbaiki pengucapan dan intonasi. Saat membaca,
+                                                                bacalah teks-teks secara keras dan cobalah untuk
+                                                                menjelaskan kembali apa yang telah kamu baca dengan
+                                                                suara keras. Ketika menulis, bacakan apa yang telah kamu
+                                                                tulis dan dengarkan kembali untuk memperbaiki kesalahan
+                                                                atau menyempurnakan tulisanmu.
+                                                            </p>
+                                                            <br>
+                                                            <a href="{{ url_for('latihan_auditorial') }}"
+                                                                style="text-align: center !important;">>> Latihan
+                                                                Berbasis Gaya Auditorial</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header" id="headingThree">
+                                                        <h5 class="mb-0">
+                                                            <button class="btn btn-link collapsed"
+                                                                data-toggle="collapse" data-target="#collapseThree"
+                                                                aria-expanded="false" aria-controls="collapseThree">
+                                                                Gaya Belajar Kinestetik
+                                                            </button>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapseThree" class="collapse"
+                                                        aria-labelledby="headingThree" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            <p>
+                                                                Untuk mereka yang memiliki gaya belajar kinestetik,
+                                                                penting untuk melibatkan gerakan dan tindakan fisik
+                                                                dalam proses belajar. Saat menyimak, cobalah untuk
+                                                                meniru gerakan yang kamu dengar atau membuat gerakan
+                                                                tubuh yang sesuai dengan apa yang sedang kamu dengarkan.
+                                                                Saat berbicara, jangan takut untuk berperan dalam
+                                                                peran-peran yang relevan dengan topik yang sedang
+                                                                dibahas atau menggunakan gestur tangan untuk memperkuat
+                                                                poin yang kamu sampaikan. Saat membaca, bergeraklah
+                                                                sambil membaca atau gunakan jari kamu untuk menyorot
+                                                                teks yang sedang kamu baca. Ketika menulis, cobalah
+                                                                menulis di atas kertas besar sambil berdiri atau
+                                                                berjalan-jalan untuk meningkatkan kreativitas dan
+                                                                konsentrasi.
+                                                            </p>
+                                                            <br>
+                                                            <a href="{{ url_for('latihan_kinestetik') }}"
+                                                                style="text-align: center !important;">>> Latihan
+                                                                Berbasis Gaya Kinestetik</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </li>
-                    
-                    <!-- list group item  -->
-                    <li class="list-group-item p-3">
-                        <div class="justify-content-between
-              align-items-center">
-                        {% if current_user.hasil_test().visual == 0 and current_user.hasil_test().auditorial == 0 and current_user.hasil_test().kinestetik == 0 %}
-                            <p><b>Hasil tes anda 0</b></p>
-                        {% elif current_user.hasil_test().visual >= current_user.hasil_test().kinestetik and current_user.hasil_test().visual >= current_user.hasil_test().auditorial %}
-                            {% include 'visual.html' %}
-                            {% if current_user.hasil_test().visual == current_user.hasil_test().auditorial %}
-                                {% include 'auditorial.html' %}
-                            {% endif %}
-                            {% if current_user.hasil_test().visual == current_user.hasil_test().kinestetik %}
-                                {% include 'kinestetik.html' %}
-                            {% endif %}
-                        {% elif current_user.hasil_test().auditorial >= current_user.hasil_test().kinestetik %}
-                            {% include 'auditorial.html' %}
-                            {% if current_user.hasil_test().auditorial == current_user.hasil_test().kinestetik %}
-                                {% include 'kinestetik.html' %}
-                            {% endif %}
-                        {% else %}
-                            {% include 'kinestetik.html' %}
                         {% endif %}
-                        {% include 'ket.html' %}
-                        </div>
-                    </li>
-                    <!-- list group item  -->
-                    <li class="list-group-item p-3">
-                        <div class="justify-content-between
-              align-items-center">
-              <h2 class="font-judul fs-30 mb-20 grey pt-20">
-                Recomendasi Gaya Belajar
-              </h2>
-              <div id="accordion">
-                <div class="card">
-                  <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Gaya Belajar Visual
-                      </button>
-                    </h5>
-                  </div>
-              
-                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        Jika kamu memiliki gaya belajar visual, kamu bisa mencoba strategi belajar yang memanfaatkan gambar, diagram, dan visualisasi. Untuk meningkatkan keterampilan menyimak, kamu bisa menonton video atau presentasi yang berhubungan dengan topik yang kamu pelajari. Ketika berbicara, cobalah membuat peta pikiran atau gambar-gambar yang menggambarkan ide-ide utama yang ingin kamu sampaikan. Saat membaca, perhatikan gambar-gambar dan grafik yang ada dalam teks untuk membantu memahami isi bacaan. Selain itu, ketika menulis, kamu bisa membuat catatan dengan menggunakan warna-warni dan diagram untuk menyusun ide-ide secara visual.
                     </div>
-                  </div>
                 </div>
-                <div class="card">
-                  <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Gaya Belajar Auditorial
-                      </button>
-                    </h5>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        Bagi yang memiliki gaya belajar auditorial, metode mendengarkan dan berbicara akan sangat membantu. Untuk meningkatkan keterampilan menyimak, dengarkan rekaman audio seperti podcast atau wawancara yang berhubungan dengan topik yang kamu pelajari. Saat berbicara, coba praktikkan berbicara dengan jelas dan lancar, dan jika memungkinkan, rekam dirimu sendiri dan dengarkan kembali untuk memperbaiki pengucapan dan intonasi. Saat membaca, bacalah teks-teks secara keras dan cobalah untuk menjelaskan kembali apa yang telah kamu baca dengan suara keras. Ketika menulis, bacakan apa yang telah kamu tulis dan dengarkan kembali untuk memperbaiki kesalahan atau menyempurnakan tulisanmu.
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Gaya Belajar Kinestetik
-                      </button>
-                    </h5>
-                  </div>
-                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">
-                        Untuk mereka yang memiliki gaya belajar kinestetik, penting untuk melibatkan gerakan dan tindakan fisik dalam proses belajar. Saat menyimak, cobalah untuk meniru gerakan yang kamu dengar atau membuat gerakan tubuh yang sesuai dengan apa yang sedang kamu dengarkan. Saat berbicara, jangan takut untuk berperan dalam peran-peran yang relevan dengan topik yang sedang dibahas atau menggunakan gestur tangan untuk memperkuat poin yang kamu sampaikan. Saat membaca, bergeraklah sambil membaca atau gunakan jari kamu untuk menyorot teks yang sedang kamu baca. Ketika menulis, cobalah menulis di atas kertas besar sambil berdiri atau berjalan-jalan untuk meningkatkan kreativitas dan konsentrasi.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-                    </li>
-                </ul>
             </div>
         </div>
-        {% endif %}
     </div>
-</div>
-</div>
-    </div>
-</div>
 
-<!-- </body>
+    <!-- </body>
 
 </html> -->
 
-{% endblock %}
+    {% endblock %}
