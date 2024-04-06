@@ -88,6 +88,7 @@ body {
     padding-top: 0.2rem;
 }
 
+
 .deskripsi {
     text-align: justify;
     font-family: roboto,sans-serif !important;
@@ -175,6 +176,9 @@ a{
     color: #424a4c !important;
 }
 
-.t{
-    line-height: normal !important;
+.ft-1{
+    font-family: roboto,sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.8rem !important;
+    color: #424a4c;
 }
