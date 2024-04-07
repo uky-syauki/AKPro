@@ -316,9 +316,9 @@
                                                 <tr>
                                                     <th scope="row">{{ siswa.id }}</th>
                                                     <td>{{ siswa.siswa().username }}</td>
-                                                    <td>{{ siswa.hasil_test().visual }}</td>
-                                                    <td>{{ siswa.hasil_test().auditorial }}</td>
-                                                    <td>{{ siswa.hasil_test().kinestetik }}</td>
+                                                    <td>{{ siswa.hitung_hasil()[0] }}%</td>
+                                                    <td>{{ siswa.hitung_hasil()[1] }}%</td>
+                                                    <td>{{ siswa.hitung_hasil()[2] }}%</td>
                                                 </tr>
                                             {% endif %}
                                         {% endfor %}

@@ -375,10 +375,10 @@
                                                             <th colspan="3">Hasil Tes Gaya Belajar</th>
                                                         </tr>
                                                         <tr>
-                                                            <th>Visual {{ current_user.hasil_test().visual }}0%</th>
-                                                            <th>Auditorial {{ current_user.hasil_test().auditorial }}0%
+                                                            <th>Visual {{ current_user.hitung_hasil()[0] }}%</th>
+                                                            <th>Auditorial {{ current_user.hitung_hasil()[1] }}%
                                                             </th>
-                                                            <th>Kinestetik {{ current_user.hasil_test().kinestetik }}0%
+                                                            <th>Kinestetik {{ current_user.hitung_hasil()[2] }}%
                                                             </th>
                                                         </tr>
                                                     </thead>

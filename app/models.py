@@ -23,6 +23,10 @@ class User(UserMixin, db.Model):
         db.session.commit()
     def hasil_test(self):
         hasil = Hasiltest.query.filter_by(nip_nis=self.nip_nis).first()
+        # hitung = self.hitung_hasil(hasil.visual,hasil.auditorial, hasil.kinestetik)
+        # hasil.visual = hitung[0]
+        # hasil.auditorial = hitung[1]
+        # hasil.kinestetik = hitung[2]
         return hasil
     def buat_room(self, kode_room, nama_room):
         broom = Room(kode_room=kode_room, nip_nis=self.nip_nis, nama_room=nama_room)
@@ -34,6 +38,14 @@ class User(UserMixin, db.Model):
         db.session.commit()
     def set_password(self, passwd):
         self.password_hash = generate_password_hash(passwd)
+    def hitung_hasil(self):
+        hasil = Hasiltest.query.filter_by(nip_nis=self.nip_nis).first()
+        n1 = hasil.visual + 1; n2 = hasil.auditorial + 1; n3 = hasil.kinestetik + 1
+        hasil = [round(n1/(n1+n2+n3)*100),round(n2/(n1+n2+n3)*100),round(n3/(n1+n2+n3)*100)]
+        if sum(hasil) < 100:
+            hasil[-1] += 1
+        print(hasil, sum(hasil), self.username)
+        return hasil
     def check_password(self, passwd):
         return check_password_hash(self.password_hash, passwd)
     def __repr__(self):
@@ -70,6 +82,13 @@ class Roomsiswa(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     kode_room = db.Column(db.String(10))
     nip_nis = db.Column(db.String(15))
+    def hitung_hasil(self):
+        hasil = Hasiltest.query.filter_by(nip_nis=self.nip_nis).first()
+        n1 = hasil.visual + 1; n2 = hasil.auditorial + 1; n3 = hasil.kinestetik + 1
+        hasil = [round(n1/(n1+n2+n3)*100),round(n2/(n1+n2+n3)*100),round(n3/(n1+n2+n3)*100)]
+        if sum(hasil) < 100:
+            hasil[-1] += 1
+        return hasil
     def room(self):
         return Room.query.filter_by(kode_room=self.kode_room).first()
     def hasil_test(self):
