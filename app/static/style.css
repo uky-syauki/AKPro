@@ -147,7 +147,8 @@ h2 {
 }
 .font-slg{
     font-family: poppins,sans-serif !important;
-    font-weight: 500 !important;
+    /* font-weight: 500 !important; */
+    font-weight: 650 !important;
 }
 
 .fs-30{
@@ -183,6 +184,15 @@ a{
     color: #424a4c;
 }
 
+.fsl{
+    font-size: 0.9rem !important;
+    line-height: 20px !important;
+}
+
 .img-icon{
     margin: 50px;
+}
+
+.img-footer{
+    margin-bottom: 30px;
 }

@@ -79,7 +79,7 @@
   <div class="container m9 mt-5 text-center" id="about"> <!-- Menambahkan ID untuk tautan anchor -->
     <!-- <h2>About Us</h2> -->
     <!-- <h2 class="font-slg fs-24"><a class="text-danger">TES GAYA BELAJAR</a> <a class="text-primary">:MENYINGKAP RAHASIA UNIK INDIVIDU, MEMBUKA PINTU LUAS MENUJU PEMBELAJARAN YANG LEBIH</a> <a class="text-danger">Efektif</a> <a class="text-primary">DAN</a> <a class="text-danger">Memuaskan</a>."</h2> -->
-    <h2 class="font-slg fs-24 text-primary"><i class="bi bi-quote"></i>TES GAYA BELAJAR: TEMUKAN POTENSI UNIKMU UNTUK PEMBELAJARAN YANG LEBIH EFEKTIF DAN MEMUASKAN!<i class="bi bi-quote"></i></h2>
+    <h2 class="font-slg fs-24 text-primary fsl"><i class="bi bi-quote"></i>TES GAYA BELAJAR: TEMUKAN POTENSI UNIKMU UNTUK PEMBELAJARAN YANG LEBIH EFEKTIF DAN MEMUASKAN!<i class="bi bi-quote"></i></h2>
     <br>
   </div>
 
@@ -87,7 +87,10 @@
   <footer>
     <div class="container">
         <hr>
-      <p>&copy; 2024 AKar Belajar Bahasa. All rights reserved.</p>
+        <div class="d-flex">
+            <p>&copy; 2024
+                <img class="img-footer" src="{{ url_for('static', filename='img/logo.png') }}" alt="" width="200"></p>
+      </div>
     </div>
   </footer>
 </section>
