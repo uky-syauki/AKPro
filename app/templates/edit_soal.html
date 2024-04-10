@@ -1,0 +1,89 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+<style>
+    .w-10{
+        width: 10%;
+    }
+
+    .cbtn{
+        margin: 0 2% 5% 0 !important;
+    }
+</style>
+
+<div class="container mb-8">
+    <h1>Halaman Edit Pertanyaan Tes</h1>
+    <br>
+
+    {% for isi in pertanyaan %}
+    <div id="target{{isi.id}}">
+        <p class="form-label">Soal {{isi.role}} nomor: <b>{{ isi.id }}</b></p>
+        <textarea class="form-control disabled" name="" id="{{ isi.id }}" cols="30" rows="4" disabled>{{ isi.isi }}</textarea>
+        <div class="d-flex">
+            <a onclick="editData('{{ isi.id }}')" id="btn-edit{{isi.id}}" class="cbtn btn btn-primary">Edit</a>
+            <a onclick="kirimData('{{ isi.id }}')" id="btn-kirim{{isi.id}}" class="cbtn btn btn-primary d-none">Update</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <br>
+    <br>
+</div>
+
+    <script>
+        let txtTmp = null;
+        function editData(id){
+            console.log("Text Tmp: " + txtTmp);
+            const btnEdit = document.getElementById('btn-edit'+id);
+            if (btnEdit.text == 'Edit') {
+                btnEdit.text = 'Batal';
+                txtTmp = document.getElementById(id).value;
+                document.getElementById(id).disabled = false;
+                document.getElementById('btn-kirim'+id).classList.remove('d-none');
+            } else {
+                btnEdit.text = 'Edit';
+                document.getElementById(id).value = txtTmp;
+                console.log("Text Tmp: " + txtTmp);
+                document.getElementById(id).disabled = true;
+                document.getElementById('btn-kirim'+id).classList.add('d-none');
+            }
+        }
+
+        function kirimData(id){
+            const txarea = document.getElementById(id).value;
+            const data = { id: id, text:  txarea};
+
+            // Konfigurasi permintaan
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+
+            // Lakukan permintaan POST ke server
+            fetch('{{ url_for("postdata") }}', options)
+                .then(response => {
+                    // Periksa apakah respons berhasil
+                    if (!response.ok) {
+                        throw new Error('Gagal mengirim data');
+                    }
+                    // Konversi respons ke format JSON
+                    return response.json();
+                })
+                .then(data => {
+                    // Tampilkan pesan dari respons yang diterima
+                    if (data.status == "Success") {
+                        document.getElementById(id).disabled = true;
+                        location.reload();
+                    } else alert(data.message);
+                })
+                .catch(error => {
+                    // Tangani kesalahan jika permintaan gagal
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+{% endblock %}

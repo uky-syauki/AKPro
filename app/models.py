@@ -9,7 +9,7 @@ class User(UserMixin, db.Model):
     status = db.Column(db.String(10)) # siswa / guru / admin
     username = db.Column(db.String(30))
     password_hash = db.Column(db.String(130))
-    kode_room = db.Column(db.String(10))
+    # kode_room = db.Column(db.String(10))
     nip_nis = db.Column(db.String(15), unique=True)
     def guru_room(self):
         hasil = Room.query.filter_by(nip_nis=self.nip_nis).all()
@@ -18,9 +18,23 @@ class User(UserMixin, db.Model):
         hasil = Roomsiswa.query.filter_by(nip_nis=self.nip_nis).all()
         return hasil
     def set_hasil_test(self, visual, auditorial, kinestetik):
-        hasil = Hasiltest(nip_nis=self.nip_nis, visual=visual,auditorial=auditorial,kinestetik=kinestetik)
-        db.session.add(hasil)
-        db.session.commit()
+        user_test = Hasiltest.query.filter_by(nip_nis=self.nip_nis).first()
+        if user_test:
+            user_test.visual = visual
+            user_test.auditorial = auditorial
+            user_test.kinestetik = kinestetik
+            try:
+                db.session.add(user_test)
+                db.session.commit()
+            except:
+                db.session.rollback()
+        else:
+            hasil = Hasiltest(nip_nis=self.nip_nis, visual=visual,auditorial=auditorial,kinestetik=kinestetik)
+            try:
+                db.session.add(hasil)
+                db.session.commit()
+            except:
+                db.session.rollback()
     def hasil_test(self):
         hasil = Hasiltest.query.filter_by(nip_nis=self.nip_nis).first()
         # hitung = self.hitung_hasil(hasil.visual,hasil.auditorial, hasil.kinestetik)
@@ -82,6 +96,7 @@ class Roomsiswa(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     kode_room = db.Column(db.String(10))
     nip_nis = db.Column(db.String(15))
+    if_not_exists=True
     def hitung_hasil(self):
         hasil = Hasiltest.query.filter_by(nip_nis=self.nip_nis).first()
         n1 = hasil.visual + 1; n2 = hasil.auditorial + 1; n3 = hasil.kinestetik + 1
@@ -110,3 +125,13 @@ class Hasiltest(db.Model):
     def __repr__(self):
         return f"<Hasiltest {self.nip_nis}>"
 
+
+class Content(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    path = db.Column(db.String(20))
+    keterangan = db.Column(db.String(15))
+    isi = db.Column(db.Text)
+    def __repr__(self):
+        return "<Content {self.id}>"
+    
+    

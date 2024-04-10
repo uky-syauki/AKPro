@@ -3,7 +3,7 @@ from flask_login import current_user, logout_user, login_user, login_required
 
 from app import app, db
 from app.models import Pertanyaan, User, Room, Hasiltest, Roomsiswa
-from app.forms import LoginForm, DaftarForm, BuatClassForm, JoinRoomForm
+from app.forms import LoginForm, DaftarForm, BuatClassForm, JoinRoomForm, EditSoalForm
 
 
 @app.route("/login", methods=["GET","POST"])
@@ -18,6 +18,9 @@ def login():
             return redirect(url_for("login"))
         flash("Login Berhasil","success")
         login_user(user)
+        print("user status=",user.status)
+        if user.status == "admin":
+            return redirect(url_for("edit_soal"))
         if user.status == "siswa" and not Hasiltest.query.filter_by(nip_nis=current_user.nip_nis).first():
             return redirect(url_for("test"))
         return redirect(url_for("akun"))
@@ -39,7 +42,7 @@ def daftar():
     if form.validate_on_submit():
         cek = User.query.filter_by(nip_nis=form.nip_nis.data).first()
         if cek:
-            flash(f"Maaf nip atau nis telah terdaftar oleh pengguna {cek.username}", "warning")
+            flash(f"Maaf nip atau nis telah terdaftar oleh pengguna: {cek.username}", "warning")
             return redirect(url_for('daftar'))
         try:
             user = User(nip_nis=form.nip_nis.data, username=form.username.data,status=form.status.data)
@@ -63,8 +66,8 @@ def index():
 @app.route("/test", methods=["GET","POST"])
 @login_required
 def test():
-    if current_user.hasil_test():
-        return redirect(url_for('akun'))
+    # if current_user.hasil_test():
+    #     return redirect(url_for('akun'))
     data = Pertanyaan.query.all()
     datastr = request.get_data()
     if datastr:
@@ -165,7 +168,12 @@ def latihan_kinestetik():
     return render_template("latihanKinestetik.html", title="Latihan Gaya Belajar Visual")
         
 
-
+@app.route("/edit-soal", methods=["GET","POST"])
+@login_required
+def edit_soal():
+    form = EditSoalForm()
+    pertanyaan = Pertanyaan.query.all()
+    return render_template("edit_soal.html", title="Edit Soal", pertanyaan=pertanyaan)
         
 
 @app.route("/profile/<status>")
@@ -177,12 +185,17 @@ def profile(status):
         return "Hello suswa"
     
 
-@app.route("/api", methods=["POST"])
+@app.route("/api", methods=["GET","POST"])
+@login_required
 def postdata():
-    data = request.get_data()
-    if not data:
-        return jsonify({"status":"Error","message":"tidak ada data"})
-    print(type(data))
-    print(dir(data))
-    
-    return jsonify({"status":"Success","message":"data diterima"})
+    try:
+        data = request.json
+        pertanyaan = Pertanyaan.query.get(int(data['id']))
+        pertanyaan.isi = data['text']
+        db.session.add(pertanyaan)
+        db.session.commit()
+        print(data['id'])
+        return jsonify({"status":"Success","message":"data diterima"})
+    except:
+        db.session.rollback()
+        return jsonify({"status":"Error","message":"Terjadi kesalahan!"})
