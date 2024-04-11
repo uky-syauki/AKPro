@@ -20,7 +20,7 @@ def login():
         login_user(user)
         print("user status=",user.status)
         if user.status == "admin":
-            return redirect(url_for("edit_soal"))
+            return redirect(url_for("admin"))
         if user.status == "siswa" and not Hasiltest.query.filter_by(nip_nis=current_user.nip_nis).first():
             return redirect(url_for("test"))
         return redirect(url_for("akun"))
@@ -105,7 +105,9 @@ def test():
 @app.route("/akun", methods=["GET","POST"])
 @login_required
 def akun():    
-    if current_user.status == "guru":
+    if current_user.status == "admin":
+        return redirect(url_for('admin'))
+    elif current_user.status == "guru":
         form = BuatClassForm()
         if form.validate_on_submit():
             cek = Room.query.filter_by(kode_room=form.kode_room.data).first()
@@ -167,6 +169,10 @@ def latihan_auditorial():
 def latihan_kinestetik():
     return render_template("latihanKinestetik.html", title="Latihan Gaya Belajar Visual")
         
+
+@app.route("/admin")
+def admin():
+    return render_template('admin.html', title="Halaman Admin")
 
 @app.route("/edit-soal", methods=["GET","POST"])
 @login_required
