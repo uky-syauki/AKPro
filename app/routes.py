@@ -3,7 +3,7 @@ from flask_login import current_user, logout_user, login_user, login_required
 
 from app import app, db
 from app.models import Pertanyaan, User, Room, Hasiltest, Roomsiswa
-from app.forms import LoginForm, DaftarForm, BuatClassForm, JoinRoomForm, EditSoalForm
+from app.forms import LoginForm, DaftarForm, BuatClassForm, JoinRoomForm
 
 
 @app.route("/login", methods=["GET","POST"])
