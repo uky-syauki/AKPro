@@ -171,7 +171,6 @@ def latihan_kinestetik():
 @app.route("/edit-soal", methods=["GET","POST"])
 @login_required
 def edit_soal():
-    form = EditSoalForm()
     pertanyaan = Pertanyaan.query.all()
     return render_template("edit_soal.html", title="Edit Soal", pertanyaan=pertanyaan)
         
