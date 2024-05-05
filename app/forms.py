@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, RadioField, validators
+from wtforms import StringField, PasswordField, SubmitField, RadioField, validators, TextAreaField
 
 
 class DaftarForm(FlaskForm):
@@ -29,4 +29,11 @@ class BuatClassForm(FlaskForm):
 class JoinRoomForm(FlaskForm):
     kode_room = StringField("Kode Room")
     gabung = SubmitField("Gabung Room")
+    
+
+
+class EditSoalForm(FlaskForm):
+    id = StringField("Soal ke", default="tes")
+    soal = TextAreaField("Pertanyaan", default="")
+    update = SubmitField("Update")
     
