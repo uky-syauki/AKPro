@@ -24,6 +24,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
 
@@ -92,8 +94,15 @@
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
                                             <!-- <input type="password" name="password" class="form-control" id="yourPassword" required=""> -->
+                                            <div class="input-group">
                                             {{ form.password(class='form-control') }}
                                             <div class="invalid-feedback">Tolong masukkan password anda</div>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" onclick="togglePassword()">
+                                                    <i id="toggleIcon" class="bi bi-eye-fill"></i>
+                                                </span>
+                                            </div>
+                                            </div>
                                         </div>
 
 
@@ -146,6 +155,20 @@
                    $(this).alert('close');
                });
            });
+
+           function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var toggleIcon = document.getElementById("toggleIcon");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.classList.remove("bi-eye-fill");
+                toggleIcon.classList.add("bi-eye-slash-fill");
+            } else {
+                passwordField.type = "password";
+                toggleIcon.classList.remove("bi-eye-slash-fill");
+                toggleIcon.classList.add("bi-eye-fill");
+            }
+        }
    </script> 
 
     <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
