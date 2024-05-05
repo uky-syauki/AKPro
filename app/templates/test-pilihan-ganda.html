@@ -1,0 +1,665 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<style>
+    .row {
+        margin: 0 10%;
+        display: flex;
+        flex-wrap: unset;
+    }
+    .w-50{
+        width: 50% !important;
+    }
+
+</style>
+<div class="pds" id="atas">
+    <div class="container">
+        <h1 class="text-center mb-4">Tes Gaya Belajar</h1>
+        <div class="accordion-body">
+            Berikut adalah <strong>instrumen</strong> pertanyaan gaya belajar <strong>visual</strong>,
+            <strong>auditorial</strong>, dan <strong>kinestetik</strong> dalam pembelajaran Bahasa Indonesia dengan
+            pilihan jawaban <code>A</code>, <code>B</code> dan <code>C</code>
+        </div>
+        <form action="/test" id="quiz-form" method="post">
+            <div class="accordion" id="accordionExample">
+                <h2 class="accordion-header" id="headingOne">
+                    <hr>
+                    <div class="row " id="">
+                        <div style="display: flex;width: 100%;font-size: 1rem;" class="">
+                            <p class="">Progress
+                            </p>
+                            <div style="width: 100%;margin-top: 0.3rem;margin-left: 0.5rem;margin-right: 0.5rem;"
+                                class="progress">
+                                <div class="progress-value progress" data-progress-percent="1" id="progres"
+                                    style="background-color: rgb(28, 72, 247); width: 10%;"></div>
+                            </div>
+                            <p id="pageProgres"></p>
+                        </div>
+                    </div>
+                </h2>
+                <div class="bagian1">
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 1:</strong> Saat mengerjakan soal atau tugas Bahasa Indonesia, apa yang biasanya Anda lakukan terlebih dahulu?</p>
+
+                                <input type="radio" class="btn-check" name="question1"
+                                    id="question1-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question1-a">A. Membaca instruksinya dengan teliti.</label>
+
+                                <input type="radio" class="btn-check" name="question1"
+                                    id="question1-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question1-b">B. Mendengarkan penjelasan orang lain terlebih dahulu</label>
+
+                                <input type="radio" class="btn-check" name="question1"
+                                id="question1-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question1-c">C. Membaca dengan bantuan jari sebagai panduan.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian2">
+                    <div id="collapseDua" class="accordion-collapse collapse " aria-labelledby="headingDua"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 2:</strong> Apa yang lebih Anda lakukan saat ingin mengetahui isi suatu buku?</p>
+
+                                <input type="radio" class="btn-check" name="question2"
+                                    id="question2-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question2-a">A. Duduk membaca buku dan melihat gambar dengan tenang</label>
+
+                                <input type="radio" class="btn-check" name="question2"
+                                    id="question2-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question2-b">B. Menyuruh orang lain menjelaskan buku tersebut</label>
+
+                                <input type="radio" class="btn-check" name="question2"
+                                id="question2-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question2-c">C. Membaca sambil berjalan dan bergerak melakukan aktivitas lain</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian3">
+                    <div id="collapseTiga" class="accordion-collapse collapse " aria-labelledby="headingTiga"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 3:</strong> Apakah Anda senang memanfaatkan waktu luang dengan membaca buku Bahasa Indonesia? </p>
+
+                                <input type="radio" class="btn-check" name="question3"
+                                    id="question3-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question3-a">A. Ya, sangat senang.</label>
+
+                                <input type="radio" class="btn-check" name="question3"
+                                    id="question3-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question3-b">B. Tidak, lebih senang mendengar penjelasan guru</label>
+
+                                <input type="radio" class="btn-check" name="question3"
+                                id="question3-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question3-c">C. Lebih suka membaca sambil praktik</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian4">
+                    <div id="collapseEmpat" class="accordion-collapse collapse " aria-labelledby="headingEmpat"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 4:</strong> Apakah Anda senang memberi tanda atau warna pada informasi-informasi penting di buku pelajaran bahasa Indonesia?</p>
+
+                                <input type="radio" class="btn-check" name="question4"
+                                    id="question4-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question4-a">A. Sangat senang.</label>
+
+                                <input type="radio" class="btn-check" name="question4"
+                                    id="question4-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question4-b">B. lebih suka merekam suara sendiri membacakan informasi penting yang ditemui</label>
+
+                                <input type="radio" class="btn-check" name="question4"
+                                id="question4-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question4-c">C. Lebih suka mencatat informasi penting berulang kali</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian5">
+                    <div id="collapseLima" class="accordion-collapse collapse " aria-labelledby="headingLima"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 5:</strong> Apakah Anda senang memperhatikan ilustrasi gambar atau warna dalam buku Bahasa Indonesia? </p>
+
+                                <input type="radio" class="btn-check" name="question5"
+                                    id="question5-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question5-a">A. Sangat senang.</label>
+
+                                <input type="radio" class="btn-check" name="question5"
+                                    id="question5-b" value="x" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question5-b">B. Tidak terlalu suka.</label>
+
+                                <input type="radio" class="btn-check" name="question5"
+                                id="question5-c" value="y" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question5-c">C. Tidak suka.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian6">
+                    <div id="collapseEnam" class="accordion-collapse collapse " aria-labelledby="headingEnam"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 6:</strong> Apakah Anda mudah menerima informasi yang disampaikan secara langsung oleh guru? </p>
+
+                                <input type="radio" class="btn-check" name="question6"
+                                    id="question6-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question6-a">A. Ya, sangat mudah.</label>
+
+                                <input type="radio" class="btn-check" name="question6"
+                                    id="question6-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question6-b">B. lebih suka membaca materinya sendiri</label>
+
+                                <input type="radio" class="btn-check" name="question6"
+                                id="question6-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question6-c">C. Lebh suka jika dijelaskan sambil di praktikan</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian7">
+                    <div id="collapseTujuh" class="accordion-collapse collapse " aria-labelledby="headingTujuh"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 7:</strong> Apakah Anda lebih senang mendengarkan penjelasan materi Bahasa Indonesia melalui video pembelajaran?</p>
+
+                                <input type="radio" class="btn-check" name="question7"
+                                    id="question7-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question7-a">A. Sangat senang karena saya mudah memahami penjelasan dari video pembelajaran</label>
+
+                                <input type="radio" class="btn-check" name="question7"
+                                    id="question7-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question7-b">B. Lebih senang mendengarkan video pembelajaran sambil mencatat</label>
+
+                                <input type="radio" class="btn-check" name="question7"
+                                id="question7-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question7-c">C. Tidak suka karena saya sulit untuk duduk diam dalam waktu yang lama.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian8">
+                    <div id="collapseDelapan" class="accordion-collapse collapse " aria-labelledby="headingDelapan"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 8:</strong> Saat guru menjelaskan materi Bahasa Indonesia secara online, apa yang Anda lakukan?</p>
+
+                                <input type="radio" class="btn-check" name="question8"
+                                    id="question8-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question8-a">A. Membaca kembali materi.</label>
+
+                                <input type="radio" class="btn-check" name="question8"
+                                    id="question8-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question8-b">B. Mengulanginya dengan berbicara kembali</label>
+
+                                <input type="radio" class="btn-check" name="question8"
+                                id="question8-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question8-c">C. Mengulanginya sambil berjalan-jalan atau melakukan aktivitas lain</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian9">
+                    <div id="collapseSembilan" class="accordion-collapse collapse " aria-labelledby="headingSembilan"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 9:</strong> Apa yang lebih anda senangi ? </p>
+
+                                <input type="radio" class="btn-check" name="question9"
+                                    id="question9-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question9-a">A. Lebih senang membaca materi sendiri</label>
+
+                                <input type="radio" class="btn-check" name="question9"
+                                    id="question9-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question9-b">B. Mendengarkan penjelasan orang lain</label>
+
+                                <input type="radio" class="btn-check" name="question9"
+                                id="question9-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question9-c">C. Lebih senang praktik materi secara langsung</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian10">
+                    <div id="collapseSepuluh" class="accordion-collapse collapse " aria-labelledby="headingSepuluh"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 10:</strong> Pada saat liburan sekolah, apa yang lebih Anda sukai ? </p>
+
+                                <input type="radio" class="btn-check" name="question10"
+                                    id="question10-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question10-a">A. Membaca buku</label>
+
+                                <input type="radio" class="btn-check" name="question10"
+                                    id="question10-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question10-b">B. Mendengarkan musik</label>
+
+                                <input type="radio" class="btn-check" name="question10"
+                                id="question10-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question10-c">C. Olahraga</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="bagian11">
+                    <div id="collapseSebelas" class="accordion-collapse collapse " aria-labelledby="headingSebelas"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 11:</strong> Anda adalah seseorang yang ?</p>
+
+                                <input type="radio" class="btn-check" name="question11"
+                                    id="question11-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question11-a">A. Menyukai kegiatan mencatat</label>
+
+                                <input type="radio" class="btn-check" name="question11"
+                                    id="question11-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question11-b">B. Kesulitan dalam menulis catatan, namun mahir dalam bercerita</label>
+
+                                <input type="radio" class="btn-check" name="question11"
+                                id="question11-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question11-c">C. Memiliki banyak tulisan yang tidak pernah dibaca kembali.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian12">
+                    <div id="collapseDuabelas" class="accordion-collapse collapse " aria-labelledby="headingDuabelas"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 12:</strong> Saat belajar, apakah tangan Anda sering tidak bisa diam? </p>
+
+                                <input type="radio" class="btn-check" name="question12"
+                                    id="question12-a" value="c" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question12-a">A. Ya, sering.</label>
+
+                                <input type="radio" class="btn-check" name="question12"
+                                    id="question12-b" value="x" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question12-b">B. Kadang-kadang.</label>
+
+                                <input type="radio" class="btn-check" name="question12"
+                                id="question12-c" value="y" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question12-c">C. Tidak begitu sering.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian13">
+                    <div id="collapseTigabelas" class="accordion-collapse collapse " aria-labelledby="headingTigabelas"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 13:</strong> Bagaimana Anda menghafal materi pelajaran? </p>
+
+                                <input type="radio" class="btn-check" name="question13"
+                                    id="question13-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question13-a">A. Dengan membaca berulang-ulang.</label>
+
+                                <input type="radio" class="btn-check" name="question13"
+                                    id="question13-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question13-b">B. Dengan mendengarkan penjelasan guru</label>
+
+                                <input type="radio" class="btn-check" name="question13"
+                                id="question13-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question13-c">C. Dengan berjalan-jalan sambil mempraktikannya.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian14">
+                    <div id="collapseEmpatbelas" class="accordion-collapse collapse " aria-labelledby="headingEmpatbelas"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 14:</strong> Apakah Anda lebih mudah memahami materi pelajaran dengan bantuan penjelasan teman?</p>
+
+                                <input type="radio" class="btn-check" name="question14"
+                                    id="question14-a" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question14-a">A. Sangat mudah.</label>
+
+                                <input type="radio" class="btn-check" name="question14"
+                                    id="question14-b" value="x" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question14-b">B. Tergantung temannya.</label>
+
+                                <input type="radio" class="btn-check" name="question14"
+                                id="question14-c" value="y" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question14-c">C. Tidak terlalu mudah.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bagian15">
+                    <div id="collapseLimabelas" class="accordion-collapse collapse " aria-labelledby="headingLimabelas"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="question">
+                                <p><strong>Pertanyaan 15:</strong> Saat tidak sedang belajar, apa yang lebih Anda sukai?</p>
+
+                                <input type="radio" class="btn-check" name="question15"
+                                    id="question15-a" value="a" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question15-a">A. Duduk diam membaca buku</label>
+
+                                <input type="radio" class="btn-check" name="question15"
+                                    id="question15-b" value="b" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question15-b">B. Berbicara dengan teman.</label>
+
+                                <input type="radio" class="btn-check" name="question15"
+                                id="question15-c" value="c" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="question15-c">C. Bergoyang-goyang atau bergerak.</label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="bagian2">
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% for isi in qs2 %}
+                            <div class="question">
+                                <p><strong>Pertanyaan {{isi.id}}:</strong> {{ isi.isi }}</p>
+
+                                <input type="radio" class="btn-check" name="question{{isi.id}}"
+                                    id="question{{isi.id}}-yes" value="yes" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question{{isi.id}}-yes">YA</label>
+
+                                <input type="radio" class="btn-check" name="question{{isi.id}}"
+                                    id="question{{isi.id}}-no" value="no" autocomplete="off">
+                                <label class="btn btn-outline-danger" for="question{{isi.id}}-no">TIDAK</label>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="bagian3">
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% for isi in qs3 %}
+                            <div class="question">
+                                <p><strong>Pertanyaan {{isi.id}}:</strong> {{ isi.isi }}</p>
+
+                                <input type="radio" class="btn-check" name="question{{isi.id}}"
+                                    id="question{{isi.id}}-yes" value="yes" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="question{{isi.id}}-yes">YA</label>
+
+                                <input type="radio" class="btn-check" name="question{{isi.id}}"
+                                    id="question{{isi.id}}-no" value="no" autocomplete="off">
+                                <label class="btn btn-outline-danger" for="question{{isi.id}}-no">TIDAK</label>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div> -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button onclick="submitAnswers()" id="selesai" class="btn btn-primary w-100 page d-none" type="submit"> <!-- d-none disabled -->
+                            SELESAI
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </form>
+        <div class="baris row">
+            <div class="w-50">
+                <button onclick="prev()" id="sebelumnya" class="btn btn-primary w-100 page disabled">
+                    Sebelumnya
+                </button>
+            </div>
+            <div class="w-50">
+                <button onclick="next()" id="selanjutnya" class="btn btn-primary w-100 page">
+                    Selanjutnya
+                </button>
+            </div>
+        </div>
+        <!-- <h2 class="accordion-header">
+            <button onclick="submitForm()" id="selesai" class="btn btn-primary w-100 page " type="submit"> <-- d-none disabled --
+                SELESAI
+            </button>
+        </h2> -->
+    </div>
+
+</div>
+<script>
+    function disableEnterKey(event) {
+        if (event.keyCode === 13) { // Check for Enter key (keyCode 13)
+            event.preventDefault(); // Prevent default action (form submission, etc.)
+        }
+    }
+    document.addEventListener('keydown', disableEnterKey);
+
+    function disableSpaceKey(event) {
+        if (event.keyCode === 32) { // Check for Space key (keyCode 32)
+            event.preventDefault(); // Prevent default action (scrolling, etc.)
+        }
+    }
+
+    // Attach the event listener to the document (for global disabling)
+    document.addEventListener('keydown', disableSpaceKey);
+
+    let qs1c = []
+    let qs2c = []
+    let qs3c = []
+    window.onload = function () {
+        document.getElementById("b1").innerText = "0";
+        document.getElementById("b2").innerText = "0";
+        document.getElementById("b3").innerText = "0";
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var radios = document.querySelectorAll('input[type=radio]');
+        radios.forEach(function (radio) {
+            radio.addEventListener('click', function () {
+                if (parseInt(this.id.slice(8, 10)) <= 10) {
+                    if (!qs1c.includes(this.id.slice(0, 10))) {
+                        qs1c.push(this.id.slice(0, 10));
+                        if (qs1c.length == 10) document.getElementById("selanjutnya").classList
+                            .remove("disabled");
+                        // document.getElementById("b1").innerText = qs1c.length;
+                    }
+                } else if (parseInt(this.id.slice(8, 10)) <= 20) {
+                    if (!qs2c.includes(this.id.slice(0, 10))) {
+                        qs2c.push(this.id.slice(0, 10));
+                        if (qs2c.length == 10) document.getElementById("selanjutnya").classList
+                            .remove("disabled");
+                        // document.getElementById("b2").innerText = qs2c.length;
+                    }
+                } else {
+                    if (!qs3c.includes(this.id.slice(0, 10))) {
+                        qs3c.push(this.id.slice(0, 10));
+                        // document.getElementById("b3").innerText = qs3c.length;
+                    }
+                }
+
+                if (qs1c.length + qs2c.length + qs3c.length == 3) {
+                    document.getElementById("selesai").classList.remove("disabled")
+                }
+            });
+        });
+    });
+    let count = () => {
+        console.log("bagian1 = ", qs1c.length);
+        console.log("bagian2 = ", qs2c.length);
+        console.log("bagian3 = ", qs3c.length);
+    }
+
+
+    let progres = 6.2;
+    let page_now = 1;
+
+    function handleProgres() {
+        progres += 6.7;
+        // page_now++;
+        document.getElementById("progres").style.width = `${progres}%`;
+        // document.getElementById("pageProgres").innerHTML = `${page_now}/3`;
+    }
+
+    function handleProgresMinus() {
+        progres -= 6.7;
+        // page_now--;
+        document.getElementById("progres").style.width = `${progres}%`;
+        // document.getElementById("pageProgres").innerHTML = `${page_now}/3`;
+    }
+
+    const scrollToElement = (elementId) => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    let lsSoal = [
+        "One",
+        "Dua",
+        "Tiga",
+        "Empat",
+        "Lima",
+        "Enam",
+        "Tujuh",
+        "Delapan",
+        "Sembilan",
+        "Sepuluh",
+        "Sebelas",
+        "Duabelas",
+        "Tigabelas",
+        "Empatbelas",
+        "Limabelas"
+    ];
+
+    current_soal = 0;
+
+    function tampilkanSoal(idsoal){
+        let bagian = document.getElementById(`collapse${idsoal}`);
+        bagian.classList.add("show");
+    }
+
+    function cek(){
+        console.log("Exc");
+        if (current_soal == 0){
+            document.getElementById("sebelumnya").classList.add('disabled');
+        } else if (current_soal == 14){
+            document.getElementById("selanjutnya").classList.add('disabled');
+            let selesai = document.getElementById('selesai');
+            if (selesai.classList.contains('d-none')) selesai.classList.remove('d-none');
+        } else {
+            let nextc = document.getElementById('selanjutnya');
+            let prevc = document.getElementById('sebelumnya');
+            if (nextc.classList.contains('disabled')) nextc.classList.remove('disabled');
+            if (prevc.classList.contains('disabled')) prevc.classList.remove('disabled');
+        }
+    }
+
+
+    function next(){
+        let bagian = document.getElementById(`collapse${lsSoal[current_soal]}`);
+        bagian.classList.remove("show");
+        current_soal += 1;
+        tampilkanSoal(lsSoal[current_soal]);
+        cek();
+        handleProgres();
+    }
+
+    function prev(){
+        let bagian = document.getElementById(`collapse${lsSoal[current_soal]}`);
+        bagian.classList.remove("show");
+        current_soal -= 1;
+        tampilkanSoal(lsSoal[current_soal]);
+        cek();
+        handleProgresMinus();
+    }
+
+
+    // let bagian1 = document.getElementById("collapseOne");
+    // let bagian2 = document.getElementById("collapseTwo");
+    // let bagian3 = document.getElementById("collapseThree");
+
+    // function next() {
+    //     handleProgres();
+    //     scrollToElement("atas");
+    //     setTimeout(function () {
+    //         if (bagian1.classList.contains("show")) {
+    //             bagian1.classList.remove("show");
+    //             bagian2.classList.add("show");
+    //             document.getElementById("selanjutnya").classList.add("disabled");
+    //         } else if (bagian2.classList.contains("show")) {
+    //             bagian2.classList.remove("show");
+    //             bagian3.classList.add("show")
+    //             document.getElementById("selesai").classList.remove("d-none");
+    //             document.getElementById("selanjutnya").classList.add("d-none");
+    //         }
+    //     }, 500);
+    // }
+
+    function submitForm() {
+        let url = "/api";  // URL langsung ke endpoint Flask
+        // Mengambil data formulir
+        var formData = new FormData(document.getElementById("quiz-form"));
+        console.log(formData);
+
+        // Kirim data menggunakan Fetch API
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Lakukan sesuatu dengan respons dari server jika diperlukan
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+{% endblock %}
