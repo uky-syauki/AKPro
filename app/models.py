@@ -58,6 +58,9 @@ class User(UserMixin, db.Model):
         hasil = [round(n1/(n1+n2+n3)*100),round(n2/(n1+n2+n3)*100),round(n3/(n1+n2+n3)*100)]
         if sum(hasil) < 100:
             hasil[-1] += 1
+        elif sum(hasil) > 100:
+            ind = hasil.index(max(hasil))
+            hasil[ind] = hasil[ind] - (sum(hasil) - 100)
         print(hasil, sum(hasil), self.username)
         return hasil
     def check_password(self, passwd):
@@ -103,6 +106,10 @@ class Roomsiswa(db.Model):
         hasil = [round(n1/(n1+n2+n3)*100),round(n2/(n1+n2+n3)*100),round(n3/(n1+n2+n3)*100)]
         if sum(hasil) < 100:
             hasil[-1] += 1
+        elif sum(hasil) > 100:
+            ind = hasil.index(max(hasil))
+            hasil[ind] = hasil[ind] - (sum(hasil) - 100)
+        print(hasil)
         return hasil
     def room(self):
         return Room.query.filter_by(kode_room=self.kode_room).first()

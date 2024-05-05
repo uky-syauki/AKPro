@@ -10,6 +10,7 @@
     <title>Dasbor Pengguna</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head> -->
+<!-- index/path -->
 
 {% block content %}
 <style>
@@ -215,7 +216,7 @@
                 pt-4 pb-6 px-4">
                     <!-- avatar -->
                     <div class="d-flex align-items-center" style="width: 100%;">
-                        <div class="avatar-xxl avatar-indicators avatar-online me-2
+                        <!-- <div class="avatar-xxl avatar-indicators avatar-online me-2
                     position-relative d-flex justify-content-end
                     align-items-end mt-n10">
                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="avatar-xxl
@@ -224,7 +225,7 @@
                                 <img src="https://dashui.codescandy.com/dashuipro/assets/images/svg/checked-mark.svg"
                                     alt="Image" class="icon-sm">
                             </a>
-                        </div>
+                        </div> -->
                         <!-- content -->
                         <div class="lh-1" style="width: 100%;">
                             <table>
@@ -325,19 +326,6 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h5 class="mb-0">Belum ada Class</h5>
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-trash-2 icon-xs">
-                                                <polyline points="3 6 5 6 21 6"></polyline>
-                                                <path
-                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                </path>
-                                                <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                <line x1="14" y1="11" x2="14" y2="17"></line>
-                                            </svg></a>
                                     </div>
                                 </div>
                             </div>
@@ -532,6 +520,19 @@
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                        {% else %}
+                        <div class="mb-8">
+                        <a href="{{ url_for('test') }}" class="card bg-primary text-putih shadow-none mb-4">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-0">Tes Sekarang</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                         </div>
                         {% endif %}
                     </div>

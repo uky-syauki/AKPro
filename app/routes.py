@@ -22,7 +22,7 @@ def login():
         if user.status == "admin":
             return redirect(url_for("admin"))
         if user.status == "siswa" and not Hasiltest.query.filter_by(nip_nis=current_user.nip_nis).first():
-            return redirect(url_for("test"))
+            return redirect(url_for("akun"))
         return redirect(url_for("akun"))
     return render_template("login.html", form=form, title="Login")
 
@@ -40,21 +40,27 @@ def daftar():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
     if form.validate_on_submit():
-        cek = User.query.filter_by(nip_nis=form.nip_nis.data).first()
+        cek = User.query.filter_by(username=form.username.data).first()
         if cek:
-            flash(f"Maaf nip atau nis telah terdaftar oleh pengguna: {cek.username}", "warning")
-            return redirect(url_for('daftar'))
-        try:
-            user = User(nip_nis=form.nip_nis.data, username=form.username.data,status=form.status.data)
-            user.set_password(form.password.data)
-            db.session.add(user)
-            db.session.commit()
-            flash("Berhasil mendaftar, silahkan Login","success")
-            return redirect(url_for('login'))
-        except:
-            flash("Terjadi kesalahan, periksa inputan","danger")
-            db.session.rollback()
-            return redirect(url_for("daftar"))
+            flash(f"Maaf, username {cek.username} telah di gunakan", "warning")
+            # return redirect(url_for('daftar'))
+        else:
+            
+            # cek = User.query.filter_by(username=form.username.data).first()
+            # if cek:
+            #     flash(f"Maaf, nama pengguna {cek.username} telah di gunakan", "warning")
+            #     return redirect(url_for('daftar'))
+            try:
+                user = User(nip_nis=form.nip_nis.data, username=form.username.data,status=form.status.data)
+                user.set_password(form.password.data)
+                db.session.add(user)
+                db.session.commit()
+                flash("Berhasil mendaftar, silahkan Login","success")
+                return redirect(url_for('login'))
+            except:
+                flash("Terjadi kesalahan, periksa inputan","danger")
+                db.session.rollback()
+                return redirect(url_for("daftar"))
     return render_template("daftar.html", form=form)
 
 
@@ -77,18 +83,29 @@ def test():
         kinestetik = 0
         for pair in datastr.split('&'):
             key, value = pair.split('=')
-            if int(key[8:]) <= 10:
-                if value == "yes":
-                    visual += 1
-            elif int(key[8:]) <= 20:
-                if value == "yes":
-                    auditorial += 1
-            else:
-                if value == "yes":
-                    kinestetik += 1
+            print(key, value)
+            if value == "a":
+                visual += 1
+            elif value == "b":
+                auditorial += 1
+            elif value == "c":
+                kinestetik += 1
+        print(f"A; {visual}\nB: {auditorial}\nC {kinestetik}")
+            
+            # if int(key[8:]) <= 10:
+            #     if value == "yes":
+            #         visual += 1
+            # elif int(key[8:]) <= 20:
+            #     if value == "yes":
+            #         auditorial += 1
+            # else:
+            #     if value == "yes":
+            #         kinestetik += 1
         # if visual and auditorial and kinestetik:
         #     flash("Anda tidak mengisih test dengan benar","danger")
         #     return redirect(url_for("test"))
+        
+        
         user = User.query.get(current_user.id)
         user.set_hasil_test(visual=visual,auditorial=auditorial,kinestetik=kinestetik)
         try:
@@ -99,7 +116,7 @@ def test():
             db.session.rollback()
             flash("Terjadi kesalahan","danger")
         return redirect(url_for('akun'))
-    return render_template("test.html", qs1=data[:10], qs2=data[10:20], qs3=data[20:], title="Tes Gaya Belajar")
+    return render_template("test-pilihan-ganda.html", qs1=data[:10], qs2=data[10:20], qs3=data[20:], title="Tes Gaya Belajar")
 
 
 @app.route("/akun", methods=["GET","POST"])
@@ -145,6 +162,8 @@ def akun():
                 db.session.add(siswa)
                 db.session.commit()
                 flash(f"Berhasil terdaftar pada Room {room.nama_room}","success")
+                if not current_user.hasil_test():
+                    return redirect(url_for('test'))
             except:
                 db.session.rollback()
                 flash("Terjadi kesalahan","danger")
@@ -152,7 +171,7 @@ def akun():
         room = current_user.siswa_room()
         print(room)
         for isi in room:
-            print(isi.room().nama_room)
+            # print(isi.room().nama_room)
             print(isi.hasil_test())
         return render_template("siswa.html", room=room, form=form)
 

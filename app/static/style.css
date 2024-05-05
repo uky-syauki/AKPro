@@ -196,3 +196,13 @@ a{
 .img-footer{
     margin-bottom: 30px;
 }
+
+.text-putih{
+    color: #fff !important;
+}
+
+
+.btn-outline-primary{
+    width: 100%;
+    text-align: left;
+}
